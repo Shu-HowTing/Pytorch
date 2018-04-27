@@ -2,13 +2,17 @@
 # Author: 小狼狗
 
 import torch
+import numpy as np
 from torch.autograd import Variable
 import torch.nn.functional as F
 import numpy as np
 import matplotlib.pyplot as plt
 
-x = torch.unsqueeze(torch.linspace(-2,2,200),dim=1) #unsqueeze将一维变成二维
-print(x.size())  #(200,1)
+# x = np.linspace(-2,2,200).reshape(200,1)
+# x = torch.FloatTensor(x)
+
+x = torch.unsqueeze(torch.linspace(-2,2,200),dim=1)  #unsqueeze将数据变成[200,1]
+#print(x.size())  #(200,1)
 y = x.pow(2) + 0.5*torch.rand(x.size())
 x,y = Variable(x),Variable(y)
 
@@ -49,6 +53,6 @@ for epoch in range(num_epochs):
     if (epoch+1) % 20 == 0:
         print('Epoch[{}/{}], loss:  {:.6f}'
               .format(epoch+1, num_epochs, loss.data[0]))
-        line=ax.plot(x.data.numpy(), out.data.numpy(), 'r')
+        line=ax.plot(x.data.numpy(), out.data.numpy(), 'r', lw=5)
         plt.pause(0.1)
         ax.lines.remove(line[0])
